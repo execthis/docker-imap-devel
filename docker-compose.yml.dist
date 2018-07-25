@@ -3,15 +3,27 @@ version: '2'
 services:
   imap:
     # Uncomment this for build image in local
-    # build:
-    #   context: .
-    image: antespi/docker-imap-devel:latest
+    build:
+      context: .
+    #image: antespi/docker-imap-devel:latest
     container_name: imap
     ports:
-    - "25:25"
-    - "143:143"
-    - "993:993"
+      - "25:25"
+      - "143:143"
+      - "993:993"
     environment:
-    - MAILNAME=example.org
-    - MAIL_ADDRESS=address@example.org
-    - MAIL_PASS=pass
+      - MAILNAME=example.org
+      - MAIL_ADDRESS=address@example.org
+      - MAIL_PASS=pass
+  roundcube:
+    image: roundcube/roundcubemail:latest
+    container_name: roundcube
+    ports:
+      - "80:80"
+    environment:
+      - ROUNDCUBEMAIL_DEFAULT_HOST=imap
+      - ROUNDCUBEMAIL_SMTP_SERVER=imap
+      - ROUNDCUBEMAIL_SMTP_PORT=25
+      - ROUNDCUBEMAIL_DB_TYPE=sqlite
+    links:
+      - imap
