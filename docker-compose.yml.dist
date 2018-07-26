@@ -14,16 +14,15 @@ services:
     environment:
       - MAILNAME=example.org
       - MAIL_ADDRESS=address@example.org
-      - MAIL_PASS=pass
+      - MAIL_PASS=pass1234
+      # additional networks for relay
+      - ADDITIONAL_NETWORKS=10.92.5.222/32
   roundcube:
     image: roundcube/roundcubemail:latest
     container_name: roundcube
     ports:
-      - "80:80"
-    environment:
-      - ROUNDCUBEMAIL_DEFAULT_HOST=imap
-      - ROUNDCUBEMAIL_SMTP_SERVER=imap
-      - ROUNDCUBEMAIL_SMTP_PORT=25
-      - ROUNDCUBEMAIL_DB_TYPE=sqlite
+      - "8080:80"
     links:
       - imap
+    volumes:
+      - "./roundcube/:/var/roundcube/config/"
