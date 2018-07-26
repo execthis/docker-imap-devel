@@ -110,8 +110,6 @@ fi
 /usr/sbin/postconf -e virtual_mailbox_domains=/etc/postfix/vhost
 /usr/sbin/postconf -e virtual_mailbox_maps=hash:/etc/postfix/vmailbox
 /usr/sbin/postconf compatibility_level=2
-# Allow development network
-#/usr/sbin/postconf -e transport_maps=hash:/etc/postfix/transport
 
 # Create user account
 if [ -n "$MAIL_ADDRESS" ]; then
