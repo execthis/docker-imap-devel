@@ -7,6 +7,7 @@ services:
       context: .
     #image: antespi/docker-imap-devel:latest
     container_name: imap
+    restart: on-failure:5
     ports:
       - "25:25"
       - "143:143"
@@ -16,10 +17,11 @@ services:
       - MAIL_ADDRESS=address@example.org
       - MAIL_PASS=pass1234
       # additional networks for relay
-      - ADDITIONAL_NETWORKS=10.92.5.222/32
+      - ADDITIONAL_NETWORKS=10.10.10.0/24
   roundcube:
     image: roundcube/roundcubemail:latest
     container_name: roundcube
+    restart: on-failure:5
     ports:
       - "8080:80"
     links:
